@@ -1,0 +1,36 @@
+import pandas as pd
+import scipy.stats as stats
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Calculate the average RIME score for each faculty member
+avg_rime_scores = data.groupby('educator_id')['rime'].mean()
+
+# Calculate the time taken to grade notes for each faculty member
+time_taken = data.groupby('educator_id')['time_grading_note_seconds'].sum()
+
+# Perform correlation test between time_taken and avg_rime_scores
+corr_coeff, p_value_corr = stats.pearsonr(time_taken, avg_rime_scores)
+
+# Perform variance test between time_taken and avg_rime_scores
+_, p_value_var = stats.levene(time_taken, avg_rime_scores)
+
+# Define significance level
+alpha = 0.05
+
+# Print the results
+print("Correlation Test:")
+print(f"Correlation coefficient: {corr_coeff}")
+print(f"P-value: {p_value_corr}")
+if p_value_corr < alpha:
+    print("Reject Null Hypothesis - There is a correlation between the time taken to grade notes and the RIME average score.")
+else:
+    print("Fail to reject Null Hypothesis - There is no correlation between the time taken to grade notes and the RIME average score.")
+
+print("\nVariance Test:")
+print(f"P-value: {p_value_var}")
+if p_value_var < alpha:
+    print("Reject Null Hypothesis - There is a difference in variance between the time taken to grade notes and the RIME average score.")
+else:
+    print("Fail to reject Null Hypothesis - There is no difference in variance between the time taken to grade notes and the RIME average score.")
