@@ -1,0 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset from CSV
+educator_data = pd.read_csv('dataset.csv')
+
+# Divide faculty into two groups based on time taken to grade notes
+threshold = educator_data['grade_delay_hours'].median()
+long_time_group = educator_data[educator_data['grade_delay_hours'] > threshold]
+short_time_group = educator_data[educator_data['grade_delay_hours'] <= threshold]
+
+# Calculate average and variance of RIME grades for each group
+long_time_avg = long_time_group['rime'].mean()
+long_time_var = long_time_group['rime'].var()
+
+short_time_avg = short_time_group['rime'].mean()
+short_time_var = short_time_group['rime'].var()
+
+# Print the output
+print("Long Time Group - Average RIME Grades:", round(long_time_avg, 2))
+print("Long Time Group - Variance of RIME Grades:", round(long_time_var, 2))
+print("Short Time Group - Average RIME Grades:", round(short_time_avg, 2))
+print("Short Time Group - Variance of RIME Grades:", round(short_time_var, 2))
+
+# Visualization
+plt.boxplot([long_time_group['rime'], short_time_group['rime']], labels=['Long Time', 'Short Time'])
+plt.xlabel('Grade Delay Hours')
+plt.ylabel('RIME Grades')
+plt.title('Comparison of RIME Grades based on Grade Delay Hours')
+plt.show()
