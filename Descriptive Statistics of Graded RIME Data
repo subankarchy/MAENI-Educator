@@ -1,0 +1,63 @@
+import pandas as pd
+
+# Load the dataset from CSV
+
+educator_data = pd.read_csv('graded_rime_educator_data.csv')
+
+# Descriptive statistics: No of faculty who used MAENI
+faculty_count = educator_data['educator_id'].nunique()
+
+# Descriptive statistics: No of notes graded per faculty average, SD, and range
+notes_per_faculty_avg = educator_data.groupby('educator_id')['total_notes_graded'].mean().round(2)
+notes_per_faculty_sd = educator_data.groupby('educator_id')['total_notes_graded'].std().round(2)
+notes_per_faculty_range = educator_data.groupby('educator_id')['total_notes_graded'].max() - educator_data.groupby('educator_id')['total_notes_graded'].min()
+
+# Descriptive statistics: Time delay to grade notes average, SD, and range
+time_delay_avg = educator_data['grade_delay_hours'].mean()
+time_delay_sd = educator_data['grade_delay_hours'].std()
+time_delay_range = educator_data['grade_delay_hours'].max() - educator_data['grade_delay_hours'].min()
+
+# Descriptive statistics: % of notes graded per faculty average, SD, and range
+notes_percentage_avg = (educator_data['total_notes_graded'] / educator_data['total_notes_recieved']).mean()*100
+notes_percentage_sd = (educator_data['total_notes_graded'] / educator_data['total_notes_recieved']).std()*100
+notes_percentage_range = ((educator_data['total_notes_graded'] / educator_data['total_notes_recieved']).max() - (educator_data['total_notes_graded'] / educator_data['total_notes_recieved']).min()) * 100
+
+# Descriptive statistics: Avg Rime score and SD, and Range
+rime_avg = educator_data['rime'].mean()
+rime_sd = educator_data['rime'].std()
+rime_range = educator_data['rime'].max() - educator_data['rime'].min()
+
+# Descriptive statistics: Time taken to grade notes average, SD, and range
+time_taken_avg = educator_data['time_grading_note_seconds'].mean()
+time_taken_sd = educator_data['time_grading_note_seconds'].std()
+time_taken_range = educator_data['time_grading_note_seconds'].max() - educator_data['time_grading_note_seconds'].min()
+
+
+# Print the Descriptive Statistics
+print("Descriptive Statistics:")
+print("Number of faculty who used MAENI:", faculty_count)
+
+print("Number of notes graded per faculty - Average:")
+print(notes_per_faculty_avg)
+
+print("Number of notes graded per faculty - Standard Deviation:")
+print(notes_per_faculty_sd)
+
+print("Number of noted graded per faculty - Range:")
+print(notes_per_faculty_range)
+
+print("Time delay to grade notes - Average:", round(time_delay_avg,2))
+print("Time delay to grade notes - Standard Deviation:", round(time_delay_sd,2))
+print("Time delay to grade notes - Range:", round(time_delay_range,2))
+
+print("Percentage of notes graded per faculty - Average:", round(notes_percentage_avg,2))
+print("Percentage of notes graded per faculty - Standard Deviation:", round(notes_percentage_sd,2))
+print("Percentage of notes graded per faculty - Range:", round(notes_percentage_range,2))
+
+print("Average RIME score:", round(rime_avg,2))
+print("RIME score - Standard Deviation:", round(rime_sd,2))
+print("RIME score - Range:", round(rime_range,2))
+
+print("Time taken to grade notes - Average:", round(time_taken_avg,2))
+print("Time taken to grade notes - Standard Deviation:", round(time_taken_sd,2))
+print("Time taken to grade notes - Range:", round(time_taken_range,2))
