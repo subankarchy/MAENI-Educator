@@ -1,0 +1,33 @@
+import pandas as pd
+import scipy.stats as stats
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Calculate the average of RIME scores
+average_rime = data['rime'].mean()
+
+# Perform correlation test between grade_delay_hours and rime average
+corr_coeff, p_value_corr = stats.pearsonr(data['grade_delay_hours'], data['rime'] - average_rime)
+
+# Perform variance test between grade_delay_hours and rime
+_, p_value_var = stats.levene(data['grade_delay_hours'], data['rime'])
+
+# Define significance level
+alpha = 0.05
+
+# Print the results
+print("Correlation Test:")
+print(f"Correlation coefficient: {corr_coeff}")
+print(f"P-value: {p_value_corr}")
+if p_value_corr < alpha:
+    print("Reject Null Hypothesis - There is a correlation between grade_delay_hours and RIME average.")
+else:
+    print("Fail to reject Null Hypothesis - There is no correlation between grade_delay_hours and RIME average.")
+
+print("\nVariance Test:")
+print(f"P-value: {p_value_var}")
+if p_value_var < alpha:
+    print("Reject Null Hypothesis - There is a difference in variance between grade_delay_hours and rime.")
+else:
+    print("Fail to reject Null Hypothesis - There is no difference in variance between grade_delay_hours and rime.")
