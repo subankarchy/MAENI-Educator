@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Divide faculty into two groups based on proficiency (number of notes graded in MAENI)
+threshold = data['total_notes_graded'].median()
+more_proficient_group = data[data['total_notes_graded'] > threshold]
+less_proficient_group = data[data['total_notes_graded'] <= threshold]
+
+# Get the educator IDs for each group
+more_proficient_ids = more_proficient_group['educator_id'].unique()
+less_proficient_ids = less_proficient_group['educator_id'].unique()
+
+# Calculate descriptive statistics for each group
+more_proficient_stats = more_proficient_group[['grade_delay_hours', 'rime']].describe()
+less_proficient_stats = less_proficient_group[['grade_delay_hours', 'rime']].describe()
+
+# Perform independent samples t-test
+t_stat, p_value = stats.ttest_ind(more_proficient_group['grade_delay_hours'], less_proficient_group['grade_delay_hours'])
+
+# Print the results
+print("More Proficient Group - Educator IDs:", more_proficient_ids)
+print("\nMore Proficient Group - Descriptive Statistics:")
+print(more_proficient_stats)
+print("\nLess Proficient Group - Educator IDs:", less_proficient_ids)
+print("\nLess Proficient Group - Descriptive Statistics:")
+print(less_proficient_stats)
+print("\nIndependent Samples t-test - t-statistic:", t_stat)
+print("Independent Samples t-test - p-value:", p_value)
