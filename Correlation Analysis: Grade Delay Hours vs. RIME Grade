@@ -17,7 +17,7 @@ plt.title('Correlation between Grade Delay Hours and RIME grade')
 # Display the plot
 plt.show()
 
-# Seperate code for same purpose
+####################### Separate code for the same purpose
 
 import pandas as pd
 from scipy.stats import pearsonr
