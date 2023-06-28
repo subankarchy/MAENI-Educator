@@ -1,0 +1,32 @@
+import pandas as pd
+from scipy import stats
+
+# Read the dataset
+educator_data = pd.read_csv('dataset.csv')
+
+# Divide faculty into two groups based on delay in grading notes
+#group1 = educator_data[educator_data['grade_delay_hours'] > 0]  # Faculty with longer delay
+#group2 = educator_data[educator_data['grade_delay_hours'] == 0]  # Faculty without delay
+
+group1 = educator_data[educator_data['grade_delay_hours'] > 2]  # Faculty with longer delay
+group2 = educator_data[educator_data['grade_delay_hours'] <=2]  # Faculty without delay
+
+# Calculate average and variance of RIME grades for each group
+group1_avg = group1['rime'].mean()
+group1_var = group1['rime'].var()
+group2_avg = group2['rime'].mean()
+group2_var = group2['rime'].var()
+
+# Perform statistical tests
+t_statistic, p_value = stats.ttest_ind(group1['rime'], group2['rime'])
+levene_statistic, levene_pvalue = stats.levene(group1['rime'], group2['rime'])
+
+# Print the results
+print("Average RIME grade - Group 1:", group1_avg)
+print("Average RIME grade - Group 2:", group2_avg)
+print("Variance of RIME grades - Group 1:", group1_var)
+print("Variance of RIME grades - Group 2:", group2_var)
+print("Independent Samples t-test - t-statistic:", t_statistic)
+print("Independent Samples t-test - p-value:", p_value)
+print("Levene's test - test statistic:", levene_statistic)
+print("Levene's test - p-value:", levene_pvalue)
