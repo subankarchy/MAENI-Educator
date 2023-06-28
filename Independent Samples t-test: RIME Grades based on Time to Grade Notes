@@ -1,0 +1,16 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Create two groups based on time taken to grade notes
+threshold = educator_data['time_grading_note_seconds'].median()
+long_time_group = educator_data[educator_data['time_grading_note_seconds'] >= threshold]
+short_time_group = educator_data[educator_data['time_grading_note_seconds'] < threshold]
+
+# Perform independent samples t-test
+t_statistic, p_value = stats.ttest_ind(long_time_group['rime'], short_time_group['rime'], equal_var=False)
+
+# Print the t-statistic and p-value
+print("Independent Samples t-test Results:")
+print("t-statistic:", t_statistic)
+print("p-value:", p_value)
