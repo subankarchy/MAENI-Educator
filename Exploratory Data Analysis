@@ -1,0 +1,413 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset from CSV
+educator_data = pd.read_csv('dataset.csv')
+
+
+# Create a box plot
+sns.boxplot(x=educator_data['time_grading_note_seconds'], y=educator_data['rime'])
+plt.xlabel('Time Taken to Grade Notes')
+plt.ylabel('RIME Grades')
+plt.title('Comparison of RIME Grades based on Time to Grade Notes')
+plt.show()
+
+###########################
+
+import pandas as pd
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Extract the 'total_notes_graded' column
+total_notes_graded = data['total_notes_graded']
+
+# Calculate the mean value of 'total_notes_graded'
+mean_total_notes_graded = total_notes_graded.mean()
+
+# Set the threshold value as the mean value
+threshold = mean_total_notes_graded
+
+print("Threshold value:", threshold)
+
+##########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a histogram of the 'rime' variable
+plt.hist(data['rime'], bins=10)
+plt.xlabel('RIME Grade')
+plt.ylabel('Frequency')
+plt.title('Distribution of RIME Grades')
+plt.show()
+
+##########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a box plot of the 'rime' variable
+plt.boxplot(data['rime'])
+plt.ylabel('RIME Grade')
+plt.title('Box Plot of RIME Grades')
+plt.show()
+
+###########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a scatter plot of 'time_grading_note_seconds' against 'rime'
+plt.scatter(data['time_grading_note_seconds'], data['rime'])
+plt.xlabel('Time Grading Note (seconds)')
+plt.ylabel('RIME Grade')
+plt.title('Scatter Plot of Time Grading Note vs. RIME Grade')
+plt.show()
+
+###########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a bar plot of the 'block_name' variable
+data['block_name'].value_counts().plot(kind='bar')
+plt.xlabel('Block Name')
+plt.ylabel('Frequency')
+plt.title('Distribution of Block Names')
+plt.show()
+
+###########################
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Select relevant columns for correlation
+correlation_data = data[['time_grading_note_seconds', 'grade_delay_hours', 'rime']]
+
+# Compute the correlation matrix
+correlation_matrix = correlation_data.corr()
+
+# Plot a heatmap of the correlation matrix
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap')
+plt.show()
+
+###########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a box plot of 'rime' grouped by 'block_name'
+ax = data.boxplot(column='rime', by='block_name')
+plt.xlabel('Block Name')
+plt.ylabel('RIME Grade')
+plt.title('Box Plot of RIME Grades Grouped by Block Name')
+
+# Rotate x-axis labels by 45 degrees
+plt.xticks(rotation=45)
+
+plt.show()
+
+###########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a histogram of RIME grades
+plt.hist(data['rime'], bins=10)
+plt.xlabel('RIME Grade')
+plt.ylabel('Frequency')
+plt.title('Distribution of RIME Grades')
+plt.show()
+
+##########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a scatter plot of RIME grades and time delay in grading
+plt.scatter(data['grade_delay_hours'], data['rime'])
+plt.xlabel('Time Delay in Grading (hours)')
+plt.ylabel('RIME Grade')
+plt.title('Scatter Plot of RIME Grades and Time Delay in Grading')
+plt.show()
+
+##########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Group data by block name and calculate the total notes graded
+block_counts = data.groupby('block_name')['total_notes_graded'].sum()
+
+# Sort the data by total notes graded in descending order
+block_counts = block_counts.sort_values(ascending=False)
+
+# Plot a bar plot of block names and total notes graded
+block_counts.plot(kind='bar')
+plt.xlabel('Block Name')
+plt.ylabel('Total Notes Graded')
+plt.title('Total Notes Graded by Block Name')
+plt.show()
+
+###########################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Convert 'date_graded' column to datetime
+data['date_graded'] = pd.to_datetime(data['date_graded'])
+
+# Group data by 'date_graded' and calculate average RIME grade
+avg_rime_by_date = data.groupby('date_graded')['rime'].mean()
+
+# Plot a line plot of RIME grades over time
+plt.plot(avg_rime_by_date.index, avg_rime_by_date.values)
+plt.xlabel('Date Graded')
+plt.ylabel('Average RIME Grade')
+plt.title('Average RIME Grade Over Time')
+plt.xticks(rotation=45)
+plt.show()
+
+#############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a box plot of RIME grades grouped by block name
+data.boxplot(column='rime', by='block_name')
+plt.xlabel('Block Name')
+plt.ylabel('RIME Grade')
+plt.title('Box Plot of RIME Grades by Block Name')
+plt.xticks(rotation=45)
+plt.show()
+
+##############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Group data by educator ID and calculate the total notes graded
+notes_graded_by_educator = data.groupby('educator_id')['total_notes_graded'].sum()
+
+# Sort the values in descending order
+notes_graded_by_educator_sorted = notes_graded_by_educator.sort_values(ascending=False)
+
+# Plot a bar plot of total notes graded by educator ID
+notes_graded_by_educator_sorted.plot(kind='bar')
+plt.xlabel('Educator ID')
+plt.ylabel('Total Notes Graded')
+plt.title('Total Notes Graded by Educator ID')
+plt.xticks(rotation=45)
+plt.show()
+
+#############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a histogram of RIME grades
+plt.hist(data['rime'], bins=10)
+plt.xlabel('RIME Grade')
+plt.ylabel('Frequency')
+plt.title('Distribution of RIME Grades')
+plt.show()
+
+##############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a scatter plot of RIME grades vs. time taken to grade
+plt.scatter(data['time_grading_note_seconds'], data['rime'])
+plt.xlabel('Time Taken to Grade (seconds)')
+plt.ylabel('RIME Grade')
+plt.title('RIME Grade vs. Time Taken to Grade')
+plt.show()
+
+###############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Group data by block name and calculate the total notes graded
+notes_graded_by_block = data.groupby('block_name')['total_notes_graded'].sum()
+
+# Plot a bar plot of total notes graded by block name
+notes_graded_by_block.plot(kind='bar')
+plt.xlabel('Block Name')
+plt.ylabel('Total Notes Graded')
+plt.title('Total Notes Graded by Block Name')
+plt.xticks(rotation=45)
+plt.show()
+
+##############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a histogram of grade delay hours
+plt.hist(data['grade_delay_hours'], bins=10)
+plt.xlabel('Grade Delay Hours')
+plt.ylabel('Frequency')
+plt.title('Distribution of Grade Delay Hours')
+plt.show()
+
+##############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a box plot of RIME grades grouped by block name
+data.boxplot(column='rime', by='block_name')
+plt.xlabel('Block Name')
+plt.ylabel('RIME Grade')
+plt.title('Box Plot of RIME Grades by Block Name')
+plt.xticks(rotation=45)
+plt.show()
+
+###############################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a scatter plot of total notes graded vs. time taken to grade
+plt.scatter(data['total_notes_graded'], data['time_grading_note_seconds'])
+plt.xlabel('Total Notes Graded')
+plt.ylabel('Time Taken to Grade (seconds)')
+plt.title('Total Notes Graded vs. Time Taken to Grade')
+plt.show()
+
+################################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a histogram of RIME grades
+plt.hist(data['rime'], bins=10)
+plt.xlabel('RIME Grade')
+plt.ylabel('Frequency')
+plt.title('Distribution of RIME Grades')
+plt.show()
+
+################################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Convert 'date_graded' column to datetime
+data['date_graded'] = pd.to_datetime(data['date_graded'])
+
+# Sort the data by date_graded
+data = data.sort_values('date_graded')
+
+# Plot a line plot of RIME grades over time
+plt.plot(data['date_graded'], data['rime'])
+plt.xlabel('Date Graded')
+plt.ylabel('RIME Grade')
+plt.title('RIME Grades Over Time')
+plt.xticks(rotation=45)
+plt.show()
+
+#################################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Plot a scatter plot of grade delay hours vs. RIME grades
+plt.scatter(data['grade_delay_hours'], data['rime'])
+plt.xlabel('Grade Delay Hours')
+plt.ylabel('RIME Grade')
+plt.title('Grade Delay Hours vs. RIME Grades')
+plt.show()
+
+#################################
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Calculate the average RIME grade by block name
+avg_rime_by_block = data.groupby('block_name')['rime'].mean()
+
+# Sort the average RIME grades in descending order
+avg_rime_by_block = avg_rime_by_block.sort_values(ascending=False)
+
+# Plot a bar plot of average RIME grades by block name
+plt.bar(avg_rime_by_block.index, avg_rime_by_block)
+plt.xlabel('Block Name')
+plt.ylabel('Average RIME Grade')
+plt.title('Average RIME Grades by Block Name')
+plt.xticks(rotation=90)
+plt.show()
+
+##################################
+
