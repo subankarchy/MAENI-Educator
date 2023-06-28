@@ -1,0 +1,18 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('graded_rime_educator_data.csv')
+
+# Extract the 'time_grading_note_seconds' and 'rime' columns
+time_taken = data['time_grading_note_seconds']
+rime = data['rime']
+
+# Create a scatter plot
+plt.scatter(time_taken, rime)
+plt.xlabel('Time taken to grade note (seconds)')
+plt.ylabel('RIME grade')
+plt.title('Correlation between Time taken to grade note and RIME grade')
+
+# Display the plot
+plt.show()
