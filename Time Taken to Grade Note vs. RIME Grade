@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset into a DataFrame
-data = pd.read_csv('graded_rime_educator_data.csv')
+data = pd.read_csv('dataset.csv')
 
 # Extract the 'time_grading_note_seconds' and 'rime' columns
 time_taken = data['time_grading_note_seconds']
