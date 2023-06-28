@@ -1,1 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Divide faculty into two groups based on number of notes graded in MAENI
+threshold = data['total_notes_graded'].median()
+more_proficient_group = data[data['total_notes_graded'] > threshold]
+less_proficient_group = data[data['total_notes_graded'] <= threshold]
+
+# Calculate descriptive statistics for desired variables for each group
+more_proficient_stats = more_proficient_group[['grade_delay_hours', 'rime']].describe()
+less_proficient_stats = less_proficient_group[['grade_delay_hours', 'rime']].describe()
+
+# Print the descriptive statistics for each group
+print("More Proficient Group - Descriptive Statistics:")
+print(more_proficient_stats)
+print("\nLess Proficient Group - Descriptive Statistics:")
+print(less_proficient_stats)
+
+# Visualization
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+axes[0].boxplot([more_proficient_group['rime'], less_proficient_group['rime']], labels=['More Proficient', 'Less Proficient'])
+axes[0].set_xlabel('MAENI Proficiency')
+axes[0].set_ylabel('RIME Grades')
+axes[0].set_title('Comparison of RIME Grades')
+axes[1].boxplot([more_proficient_group['grade_delay_hours'], less_proficient_group['grade_delay_hours']], labels=['More Proficient', 'Less Proficient'])
+axes[1].set_xlabel('MAENI Proficiency')
+axes[1].set_ylabel('Grade Delay Hours')
+axes[1].set_title('Comparison of Grade Delay Hours')
+plt.tight_layout()
+plt.show()
