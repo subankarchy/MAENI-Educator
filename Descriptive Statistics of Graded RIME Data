@@ -2,7 +2,7 @@ import pandas as pd
 
 # Load the dataset from CSV
 
-educator_data = pd.read_csv('graded_rime_educator_data.csv')
+educator_data = pd.read_csv('dataset.csv')
 
 # Descriptive statistics: No of faculty who used MAENI
 faculty_count = educator_data['educator_id'].nunique()
