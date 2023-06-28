@@ -1,0 +1,19 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Extract the 'grade_delay_hours' and 'time_grading_note_seconds' columns
+delay_hours = data['grade_delay_hours']
+time_grading = data['time_grading_note_seconds']
+
+# Create a scatter plot with regression line
+sns.regplot(x=delay_hours, y=time_grading)
+plt.xlabel('Grade Delay Hours')
+plt.ylabel('Time Grading Note (seconds)')
+plt.title('Correlation between Grade Delay Hours and Time Grading Note')
+
+# Display the plot
+plt.show()
