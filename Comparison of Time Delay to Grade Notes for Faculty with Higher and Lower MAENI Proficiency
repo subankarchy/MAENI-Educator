@@ -1,0 +1,41 @@
+import pandas as pd
+from scipy import stats
+
+# Read the dataset
+educator_data = pd.read_csv('dataset.csv')
+
+# Divide faculty into two groups based on MAENI proficiency
+threshold = educator_data['total_notes_graded'].median()
+group1 = educator_data[educator_data['total_notes_graded'] > threshold]  # Faculty with higher MAENI proficiency
+group2 = educator_data[educator_data['total_notes_graded'] <= threshold]  # Faculty with lower MAENI proficiency
+
+#group1 = educator_data[educator_data['total_notes_graded'] > 13]  # Faculty with higher MAENI proficiency
+#group2 = educator_data[educator_data['total_notes_graded'] <= 13]  # Faculty with lower MAENI proficiency
+
+
+# Calculate descriptive statistics for each group
+group1_avg = group1['grade_delay_hours'].mean()
+group1_sd = group1['grade_delay_hours'].std()
+group1_range = group1['grade_delay_hours'].max() - group1['grade_delay_hours'].min()
+
+group2_avg = group2['grade_delay_hours'].mean()
+group2_sd = group2['grade_delay_hours'].std()
+group2_range = group2['grade_delay_hours'].max() - group2['grade_delay_hours'].min()
+
+# Perform statistical tests
+t_statistic, p_value = stats.ttest_ind(group1['rime'], group2['rime'])
+# Or use Mann-Whitney U test for non-parametric data
+# u_statistic, p_value = stats.mannwhitneyu(group1['rime'], group2['rime'])
+
+# Print the results
+print("Group 1 - Average time delay to grade notes:", group1_avg)
+print("Group 1 - Standard deviation of time delay to grade notes:", group1_sd)
+print("Group 1 - Range of time delay to grade notes:", group1_range)
+
+print("Group 2 - Average time delay to grade notes:", group2_avg)
+print("Group 2 - Standard deviation of time delay to grade notes:", group2_sd)
+print("Group 2 - Range of time delay to grade notes:", group2_range)
+
+print("Independent Samples t-test - t-statistic:", t_statistic)
+print("Independent Samples t-test - p-value:", p_value)
+# Or print the Mann-Whitney U test results
