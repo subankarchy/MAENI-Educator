@@ -1,0 +1,21 @@
+import pandas as pd
+import statsmodels.api as sm
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Extract the 'time_grading_note_seconds' and 'rime' columns
+time_taken = data['time_grading_note_seconds']
+rime = data['rime']
+
+# Add a constant term to the independent variable
+X = sm.add_constant(time_taken)
+
+# Create a linear regression model
+model = sm.OLS(rime, X)
+
+# Fit the model
+results = model.fit()
+
+# Print the summary of the regression model
+print(results.summary())
