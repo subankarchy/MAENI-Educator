@@ -1,0 +1,14 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Load the dataset from CSV
+educator_data = pd.read_csv('graded_rime_educator_data.csv')
+
+# Perform one-way ANOVA
+f_statistic, p_value = stats.f_oneway(long_time_group['rime'], short_time_group['rime'])
+
+# Print the F-statistic and p_value
+print("ANOVA Results:")
+print("F-statistic:", f_statistic)
+print("p-value:", p_value)
