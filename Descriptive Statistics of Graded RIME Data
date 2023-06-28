@@ -1,7 +1,6 @@
 import pandas as pd
 
 # Load the dataset from CSV
-
 educator_data = pd.read_csv('dataset.csv')
 
 # Descriptive statistics: No of faculty who used MAENI
