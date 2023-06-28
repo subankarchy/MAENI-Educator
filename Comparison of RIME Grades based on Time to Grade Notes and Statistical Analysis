@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('graded_rime_educator_data.csv')
+
+# Calculate the median time taken to grade notes
+median_time = data['time_grading_note_seconds'].median()
+
+# Divide the faculty into two groups based on median time
+longer_time_group = data[data['time_grading_note_seconds'] >= median_time]
+less_time_group = data[data['time_grading_note_seconds'] < median_time]
+
+# Calculate the average RIME grade for each group
+avg_rime_longer_time = longer_time_group['rime'].mean()
+avg_rime_less_time = less_time_group['rime'].mean()
+
+# Perform t-test to compare the means of the two groups
+t_stat, p_value_mean = stats.ttest_ind(longer_time_group['rime'], less_time_group['rime'])
+
+# Calculate the variance of RIME grades for each group
+var_rime_longer_time = np.var(longer_time_group['rime'])
+var_rime_less_time = np.var(less_time_group['rime'])
+
+# Perform Levene's test to compare the variances of the two groups
+_, p_value_var = stats.levene(longer_time_group['rime'], less_time_group['rime'])
+
+# Define significance level
+alpha = 0.05
+
+# Print the results
+print("Average RIME Grades:")
+print("Longer Time Group:", avg_rime_longer_time)
+print("Less Time Group:", avg_rime_less_time)
+print("\nHypothesis Test (Means):")
+print("t-statistic:", t_stat)
+print("p-value:", p_value_mean)
+if p_value_mean < alpha:
+    print("Reject Null Hypothesis - There is a significant difference in average RIME grades.")
+else:
+    print("Fail to reject Null Hypothesis - There is no significant difference in average RIME grades.")
+print("\nVariance of RIME Grades:")
+print("Longer Time Group:", var_rime_longer_time)
+print("Less Time Group:", var_rime_less_time)
+print("\nHypothesis Test (Variances):")
+print("p-value:", p_value_var)
+if p_value_var < alpha:
+    print("Reject Null Hypothesis - There is a significant difference in variance of RIME grades.")
+else:
+    print("Fail to reject Null Hypothesis - There is no significant difference in variance of RIME grades.")
+
+# Create a boxplot to visualize the average RIME grades of the two groups
+plt.boxplot([longer_time_group['rime'], less_time_group['rime']], labels=['Longer Time', 'Less Time'])
+plt.xlabel('Time taken to grade notes')
+plt.ylabel('RIME grade')
+plt.title('Comparison of RIME Grades based on Time to Grade Notes')
+plt.show()
