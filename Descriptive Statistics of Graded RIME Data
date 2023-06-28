@@ -31,7 +31,6 @@ time_taken_avg = educator_data['time_grading_note_seconds'].mean()
 time_taken_sd = educator_data['time_grading_note_seconds'].std()
 time_taken_range = educator_data['time_grading_note_seconds'].max() - educator_data['time_grading_note_seconds'].min()
 
-
 # Print the Descriptive Statistics
 print("Descriptive Statistics:")
 print("Number of faculty who used MAENI:", faculty_count)
