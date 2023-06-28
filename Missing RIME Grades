@@ -1,0 +1,15 @@
+import pandas as pd
+
+# Load the dataset from CSV
+educator_data = pd.read_csv('dataset.csv')
+
+# Filter the dataset to include only rows where RIME is null
+missing_rime_data = educator_data[educator_data['rime'].isnull()]
+
+# Get the unique educator IDs who did not grade RIME
+educator_ids = missing_rime_data['educator_id'].unique()
+
+# Print the educator IDs who did not grade RIME
+print("Educator IDs who did not grade RIME:")
+for educator_id in educator_ids:
+    print(educator_id)
