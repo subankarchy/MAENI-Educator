@@ -1,0 +1,19 @@
+import pandas as pd
+import statsmodels.api as sm
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Extract the 'grade_delay_hours' and 'rime' columns
+delay_hours = data['grade_delay_hours']
+rime = data['rime']
+
+# Add a constant column for the intercept
+X = sm.add_constant(delay_hours)
+
+# Perform the linear regression
+model = sm.OLS(rime, X)
+results = model.fit()
+
+# Print the regression summary
+print(results.summary())
