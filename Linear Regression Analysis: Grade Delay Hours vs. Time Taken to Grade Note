@@ -1,0 +1,21 @@
+import pandas as pd
+import statsmodels.api as sm
+
+# Load the dataset into a DataFrame
+data = pd.read_csv('dataset.csv')
+
+# Extract the 'grade_delay_hours' and 'time_grading_note_seconds' columns
+delay_hours = data['grade_delay_hours']
+time_taken = data['time_grading_note_seconds']
+
+# Add a constant term to the predictor variable
+X = sm.add_constant(delay_hours)
+
+# Create the linear regression model
+model = sm.OLS(time_taken, X)
+
+# Fit the model to the data
+results = model.fit()
+
+# Print the summary of the regression model
+print(results.summary())
